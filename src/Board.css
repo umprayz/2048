@@ -1,0 +1,18 @@
+.game-board-container {
+    background-color: #bbada0;
+    border-radius: 6px;
+    padding: 10px;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.board-row {
+    display: flex;
+    flex: 1;
+}
+
+.light-theme {
+    background-color: #362f28;
+}

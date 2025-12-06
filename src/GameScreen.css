@@ -1,0 +1,30 @@
+.game-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding-top: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.score {
+    font-size: 1.5em;
+    color: var(--highlight-color);
+}
+
+.header button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}

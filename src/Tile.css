@@ -1,0 +1,49 @@
+.tile {
+    flex: 1;
+    margin: 5px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #776e65;
+}
+
+.tile-0 {
+    background-color: #dadada; 
+}
+.tile-2 {
+    background-color: #eee4da;
+}
+.tile-4 {
+    background-color: #e9d4ad;
+}
+.tile-8 {
+    background-color: #dba94d;
+}
+.tile-16 {
+    background-color: #ffa600;
+}
+.tile-32 {
+    background-color: #ee5b37;
+}
+.tile-64 {
+    background-color: #f03d10;
+}
+.tile-128 {
+    background-color: #ff0d0d;
+}
+.tile-256 {
+    background-color: #c0299ac0;
+}
+.tile-512 {
+    background-color: #9925bd;
+}
+.tile-1024 {
+    background-color: #5a2bda;
+}
+.tile-2048 {
+    background-color: #2151d3;
+}
+/* ... A többi tile-x stílust itt kell folytatni (8, 16, 32, stb.) ... */
