@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './GameScreen.css';
-import { Board } from './Board';
-import { addRandomTile, checkGameOver, initializeBoardWithTwoTiles, processMove } from './logic';
 import { Score } from './Score';
 import { useNotification } from './useNotification';
-import { TileValue } from './TypesForGame';
 import { GameOverScreen } from './GameOverScreen';
-export type Board = TileValue[][];
-export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+import { TileValue, Board, Direction } from './TypesForGame';
+import { GameBoard } from './GameBoard';
+import { addRandomTile, checkGameOver, initializeBoardWithTwoTiles, processMove } from './logic';
 
 // Property defnition in order to ensure that GameScreen only accepts callbacks
 interface GameScreenProps {
@@ -21,8 +19,12 @@ export function GameScreen({ onEndGame }: Readonly<GameScreenProps>) {
     let [isGameOver, setIsGameOver] = useState<boolean>(false);
     let [notificationSent, setNotificationSent] = useState<boolean>(false);
     let { requestAndShowNotification } = useNotification();
+    
+    // Initialize highScore with validation
     let savedHighScore = localStorage.getItem('2048_high_score');
-    let [highScore, setHighScore] = useState<number>(savedHighScore ? Number.parseInt(savedHighScore, 10) : 0);
+    let parsedHighScore = savedHighScore ? Number.parseInt(savedHighScore, 10) : 0;
+    let initialHighScore = !isNaN(parsedHighScore) ? parsedHighScore : 0;
+    let [highScore, setHighScore] = useState<number>(initialHighScore);
 
     // Callback used to move tiles in the specified direction to ensure stable references
     let moveTiles = useCallback((direction: Direction, currentBoard: Board): Board => {
@@ -48,15 +50,14 @@ export function GameScreen({ onEndGame }: Readonly<GameScreenProps>) {
                 return newTotalScore;
             });
 
-
             let boardWithNewTile = addRandomTile(movedBoard);
-
             setIsGameOver(checkGameOver(boardWithNewTile));
 
             return boardWithNewTile;
         }
         return currentBoard;
-    }, [setScore, setIsGameOver, setHighScore, notificationSent, setNotificationSent, requestAndShowNotification]);
+
+    }, [notificationSent, requestAndShowNotification]);
 
     // Hook used to handle keyboard input for moving tiles
     useEffect(() => {
@@ -92,8 +93,10 @@ export function GameScreen({ onEndGame }: Readonly<GameScreenProps>) {
         };
     }, [moveTiles]);
 
-    // Hook used to reset notificationSent when a new game starts
-    useEffect(() => {
+    let handleRestart = useCallback(() => {
+        setBoard(initializeBoardWithTwoTiles());
+        setScore(0);
+        setIsGameOver(false);
         setNotificationSent(false);
     }, []);
 
@@ -108,15 +111,9 @@ export function GameScreen({ onEndGame }: Readonly<GameScreenProps>) {
                 onEndGame();
             }} />
 
-            <Board board={board} />
+            <GameBoard board={board} />
 
-            {isGameOver && (<GameOverScreen onRestart={() => {
-                const stored = localStorage.getItem('2048_high_score');
-                const storedVal = stored ? Number.parseInt(stored, 10) : 0;
-                const toSave = Math.max(storedVal, highScore);
-                localStorage.setItem('2048_high_score', toSave.toString());
-                onEndGame();
-            }} />)}
+            {isGameOver && (<GameOverScreen onRestart={handleRestart} />)}
         </div>
     );
 }

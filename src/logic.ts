@@ -1,6 +1,4 @@
-import { Direction } from "./GameScreen";
-import { TileValue } from "./TypesForGame";
-import { Board } from "./TypesForGame";
+import { TileValue, Board, Direction } from "./TypesForGame";
 
 let dimension = 4;
 

@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { StartScreen } from './StartScreen';
 import { GameScreen } from './GameScreen';
 
@@ -9,6 +9,16 @@ type View = 'start' | 'game';
 // Decides which screen to show based on the current view type
 export function App(){
   let [currentView, setCurrentView] = useState<View>('start');
+
+  // Initialize localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      let highScoreValue = localStorage.getItem('2048_high_score');
+      if (highScoreValue === 'NaN' || highScoreValue === null || highScoreValue === '') {
+        localStorage.setItem('2048_high_score', '0');
+      }
+    }
+  }, []);
 
   let handleStartGame = () => {
     setCurrentView('game');
