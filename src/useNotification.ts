@@ -1,4 +1,4 @@
-// Client-side notification helper.
+// Client-side notification
 export function useNotification() {
     let isSupported = typeof globalThis !== 'undefined' && 'Notification' in globalThis;
 

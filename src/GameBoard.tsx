@@ -7,6 +7,7 @@ interface BoardProps {
   board: number[][];
 }
 
+// GameBoard component to render the game board
 export function GameBoard({ board }: Readonly<BoardProps>) {
     return (
     <div className="game-board-container">

@@ -93,6 +93,9 @@ export function GameScreen({ onEndGame }: Readonly<GameScreenProps>) {
         };
     }, [moveTiles]);
 
+    // function to handle game restart
+    // initalizes board, score, game over status, and notification sent status
+    // while keeping high score intact
     let handleRestart = useCallback(() => {
         setBoard(initializeBoardWithTwoTiles());
         setScore(0);

@@ -93,6 +93,7 @@ function moveRowLeft(row: TileValue[]): { newRow: TileValue[], score: number, mo
     let filteredRow = row.filter(val => val !== 0);
 
     for (let i = 0; i < filteredRow.length - 1; i++) {
+        // Check for mergeable tiles
         if (filteredRow[i] === filteredRow[i + 1]) {
             filteredRow[i] *= 2;
             newScore += filteredRow[i];
